@@ -4,6 +4,8 @@ namespace App\Repositories\User;
 
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepositoryImplement extends Eloquent implements UserRepository{
 
@@ -19,5 +21,20 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
         $this->model = $model;
     }
 
-    // Write something awesome :)
+    public function userRegister(Request $request){
+        $data = $this->model->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return $data;
+    }
+
+    public function userDelete(Request $request){
+
+    }
+
+    public function useUpdate(Request $request){
+
+    }
 }
