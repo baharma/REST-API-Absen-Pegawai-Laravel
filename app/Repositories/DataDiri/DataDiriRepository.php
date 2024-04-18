@@ -7,5 +7,5 @@ use LaravelEasyRepository\Repository;
 
 interface DataDiriRepository extends Repository{
 
-    public function dataDiriRegister(Request $request);
+    public function dataDiriRegister($request);
 }

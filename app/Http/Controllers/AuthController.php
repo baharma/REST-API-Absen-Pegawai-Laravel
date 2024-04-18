@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\PersonalAccessToken;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Str;
+use App\Http\Helper\randomNumber;
+use App\Helpers\helpers;
+
 
 class AuthController extends Controller
 {
@@ -31,6 +35,16 @@ class AuthController extends Controller
 
     public function register(AuthRequest $request){
         $user = $this->userRepository->userRegister($request);
+        $randomNumber = mt_rand(100000, 999999);
+        $formattedNumber = str_pad($randomNumber, 6, '0', STR_PAD_LEFT);
+
+        $dataDiri  = [
+            'name'=>$request->name,
+            'birthday'=>$request->birthday,
+            'id_pegawai'=>$formattedNumber,
+            'id_user'=>$user->id
+        ];
+        $this->dataDiriRepository->dataDiriRegister($dataDiri);
         $token = Auth::guard('api')->login($user);
         $userRegister = new UserCollection([
             'user' => $user,

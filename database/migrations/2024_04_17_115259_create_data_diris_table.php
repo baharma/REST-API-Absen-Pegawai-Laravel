@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->date('birthday');
             $table->string('id_pegawai');
-            $table->foreignId('id_user')->references('id')->on('users');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

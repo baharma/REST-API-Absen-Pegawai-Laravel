@@ -57,4 +57,7 @@ class User extends Authenticatable implements JWTSubject
         'name'=>$this->name
       ];
     }
+    public function dataDiri(){
+        return $this->hasOne(DataDiri::class,'id','id_user');
+    }
 }
