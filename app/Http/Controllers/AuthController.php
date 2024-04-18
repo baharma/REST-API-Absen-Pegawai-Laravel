@@ -6,6 +6,7 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
+use App\Repositories\DataDiri\DataDiriRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,10 @@ class AuthController extends Controller
 {
 
     protected $user;
-    public $userRepository;
-    public function __construct(User $user, UserRepository $userRepository)
+    public $userRepository,$dataDiriRepository;
+    public function __construct(User $user, UserRepository $userRepository,DataDiriRepository $dataDiriRepository)
     {
+        $this->dataDiriRepository = $dataDiriRepository;
         $this->user = $user;
         $this->userRepository = $userRepository;
 
@@ -29,7 +31,6 @@ class AuthController extends Controller
 
     public function register(AuthRequest $request){
         $user = $this->userRepository->userRegister($request);
-
         $token = Auth::guard('api')->login($user);
         $userRegister = new UserCollection([
             'user' => $user,
@@ -66,7 +67,6 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
-
 
     public function refresh(Request $request)
     {
