@@ -27,6 +27,8 @@ class DataDiriCollection extends ResourceCollection
                     return [
                         'date' => $items->date,
                         'status-absen' => $items->status,
+                        'clock_in'=>$items->clock_in ?? null,
+                        'clock_out'=>$items->clock_out ?? null,
                         'shift-status' => $shift->map(function ($action) {
                             return [
                                 'status' => $action->status,
