@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ShiftController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,8 @@ Route::middleware('api')->group(function () {
 
 
 
+Route::controller(ShiftController::class)->middleware('api')->group(function(){
+    Route::get('/data-employee','showAllDataDiri');
+    Route::post('/save-shift','createShift');
+    Route::post('/delete-shift','deleteShift');
+});

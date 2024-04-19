@@ -25,4 +25,14 @@ class DataDiriRepositoryImplement extends Eloquent implements DataDiriRepository
     public function dataDiriRegister($request){
        return  $this->model->create($request);
     }
+
+    public function showAllData(){
+        return $this->model->all();
+    }
+
+    public function whereEmployee(Request $request){
+       return $this->model->where('id_pegawai',$request->id_pegawai)->first();
+    }
+
+
 }

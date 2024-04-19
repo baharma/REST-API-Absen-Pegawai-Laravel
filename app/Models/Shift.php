@@ -9,4 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Shift extends Model
 {
     use HasFactory,HasUuids;
+
+    protected $fillable = [
+        'date',
+        'status',
+        'description',
+        'id_absens',
+        'check_holiday_nasional'
+    ];
+
+
 }

@@ -20,4 +20,7 @@ class DataDiri extends Model
     public function users(){
         return $this->belongsTo(User::class,'id_user','id');
     }
+    public function Absen(){
+        return $this->belongsToMany(Absen::class,'has_absens','id_data_diri','id_absen');
+    }
 }

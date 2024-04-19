@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class NasionalDay extends Model
 {
     use HasFactory,HasUuids;
+    protected $fillable = [
+        'holiday_date',
+        'holiday_name',
+        'is_national_holiday'
+    ];
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Repositories\Shift;
+namespace App\Repositories\NasionalDay;
 
 use LaravelEasyRepository\Implementations\Eloquent;
-use App\Models\Shift;
-use Illuminate\Http\Request;
+use App\Models\NasionalDay;
 
-class ShiftRepositoryImplement extends Eloquent implements ShiftRepository{
+class NasionalDayRepositoryImplement extends Eloquent implements NasionalDayRepository{
 
     /**
     * Model class to be used in this repository for the common methods inside Eloquent
@@ -15,18 +14,12 @@ class ShiftRepositoryImplement extends Eloquent implements ShiftRepository{
     */
     protected $model;
 
-    public function __construct(Shift $model)
+    public function __construct(NasionalDay $model)
     {
         $this->model = $model;
     }
 
-    public function createShift($request)
-    {
-        return $this->model->create($request);
-    }
-
-    public function showAll()
-    {
+    public function getAllNasionalDay(){
         return $this->model->all();
     }
 }

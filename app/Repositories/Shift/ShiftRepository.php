@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Shift;
 
+use Illuminate\Http\Request;
 use LaravelEasyRepository\Repository;
 
 interface ShiftRepository extends Repository{
 
-    // Write something awesome :)
+    public function createShift( $request);
+    public function showAll();
 }

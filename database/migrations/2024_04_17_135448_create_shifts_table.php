@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('shifts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('date');
-            $table->string('status');
-            $table->string('description');
-            $table->foreignUuid('check_holiday_nasional')->references('id')->on('nasional_days');
+            $table->string('status')->default('pagi');
+            $table->string('description')->nullable();
+            $table->uuid('id_absens')->nullable();
+            $table->foreign('id_absens')->references('id')->on('absens')->onDelete('set null');
+
+            $table->uuid('check_holiday_nasional')->nullable();
+            $table->foreign('check_holiday_nasional')->references('id')->on('nasional_days')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Repositories\Absen;
 
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Absen;
+use App\Models\DataDiri;
 
 class AbsenRepositoryImplement extends Eloquent implements AbsenRepository{
 
@@ -12,12 +13,20 @@ class AbsenRepositoryImplement extends Eloquent implements AbsenRepository{
     * Don't remove or change $this->model variable name
     * @property Model|mixed $model;
     */
-    protected $model;
+    protected $model,$modalDataDiri;
 
-    public function __construct(Absen $model)
+    public function __construct(Absen $model,DataDiri $dataDiri)
     {
+        $this->modalDataDiri = $dataDiri;
         $this->model = $model;
     }
 
-    // Write something awesome :)
+
+    public function create($request){
+        return $this->model->create($request);
+    }
+
+    public function update($request,$id){
+        return $this->model->find($id)->update($request);
+    }
 }

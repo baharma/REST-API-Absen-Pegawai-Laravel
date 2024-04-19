@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('has_absens', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->foreignUuid('id_data_diri')->references('id')->on('data_diris');
             $table->foreignUuid('id_absen')->references('id')->on('absens');
             $table->timestamps();
