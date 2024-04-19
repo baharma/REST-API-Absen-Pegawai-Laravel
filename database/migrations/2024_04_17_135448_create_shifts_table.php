@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->date('date');
             $table->string('status')->default('pagi');
-            $table->string('description')->nullable();
+            $table->string('description')->default('shift');
             $table->uuid('id_absens')->nullable();
             $table->uuid('check_holiday_nasional')->nullable();
             $table->foreign('id_absens')->references('id')->on('absens')->onDelete('set null');

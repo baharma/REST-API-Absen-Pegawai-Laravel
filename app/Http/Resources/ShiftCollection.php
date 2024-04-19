@@ -27,7 +27,8 @@ class ShiftCollection extends ResourceCollection
             'message' => 'Created Shift successfully',
             'status' =>[
                 'name'=> $this->datadiri->name,
-                'shift-date' => $this->shift->date
+                'shift-date' => $this->shift->date,
+                'description' => $this->shift->description
             ]
         ];
     }

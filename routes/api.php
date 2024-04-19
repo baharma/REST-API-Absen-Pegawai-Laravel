@@ -38,6 +38,9 @@ Route::controller(ShiftController::class)->middleware('api')->group(function(){
     Route::post('/save-shift','createShift');
     Route::post('/delete-shift','deleteShift');
     Route::post('/update-shift','updateShift');
+
+    Route::post('/cuti','cutiFiture');
+
 });
 
 Route::controller(AbsensiController::class)->middleware('api')->group(function(){

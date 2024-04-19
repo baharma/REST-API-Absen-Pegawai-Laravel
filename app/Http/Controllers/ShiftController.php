@@ -60,6 +60,7 @@ class ShiftController extends Controller
                 ]);
             }
         }
+
         $makeAbsenData = [
             'date'=>$request->date
         ];
@@ -127,7 +128,47 @@ class ShiftController extends Controller
 
 
 
-    public function cutiFiture(){
+    public function cutiFiture(Request $request){
+        $data = $this->dataDiriRepository->whereEmployee($request);
 
+        $getAllNasionalDay = $this->nasionalRepository->getAllNasionalDay();
+        $checkShift = $this->shiftRepository->showAll();
+
+        foreach($getAllNasionalDay as $nasional){
+            if($nasional->holiday_date == $request->date ){
+                return response()->json([
+                    'status' => 'Libur Nasional',
+                    'message' => $nasional->holiday_name,
+                ]);
+            }
+        }
+
+        foreach($checkShift as $shift){
+            if($shift->date == $request->date){
+                return response()->json([
+                    'status' => 'Shift created Successfully',
+                    'message' => $shift->description,
+                ]);
+            }
+        }
+        $makeAbsenData = [
+            'date'=>$request->date
+        ];
+        $absen = $this->absenRepository->create($makeAbsenData);
+
+        $data->Absen()->sync($absen->id,false);
+
+        $makeShift = [
+            'date'=>$request->date,
+            'id_absens'=>$absen->id,
+            'description'=>$request->description
+        ];
+        $shift = $this->shiftRepository->createShift($makeShift);
+        $datashift = new ShiftCollection([
+            'absen'=>$absen,
+            'shift'=>$shift,
+            'datadiri'=>$data
+        ]);
+        return $datashift->response()->setStatusCode(Response::HTTP_OK);
     }
 }
