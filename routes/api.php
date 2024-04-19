@@ -37,9 +37,12 @@ Route::controller(ShiftController::class)->middleware('api')->group(function(){
     Route::get('/data-employee','showAllDataDiri');
     Route::post('/save-shift','createShift');
     Route::post('/delete-shift','deleteShift');
+    Route::post('/cuti','cutiFiture');
+
+
     Route::post('/update-shift','updateShift');
 
-    Route::post('/cuti','cutiFiture');
+
 
 });
 

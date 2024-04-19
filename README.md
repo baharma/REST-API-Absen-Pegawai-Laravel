@@ -53,3 +53,133 @@ Example
     }
 }
 ```
+- (POST) ['/refresh']
+
+Headers
+
+Authorization: Bearer <token>
+- (POST) ['/logout']
+
+Headers
+
+Authorization: Bearer <token>
+
+
+
+# Shift  
+
+- (GET) ['/data-employee']
+
+this data to show all employee
+
+Headers
+
+Authorization: Bearer <token>
+```bash
+{
+    "data": [
+        {
+            "name": "haiya",
+            "birthday": "2024-09-25",
+            "id_pegawai": "777020",
+            "shifts": [
+                {
+                    "date": "2024-04-19",
+                    "status-absen": "late",
+                    "clock_in": "20:53:42",
+                    "clock_out": "20:53:54",
+                    "shift-status": [
+                        {
+                            "status": "pagi",
+                            "nasional_holiday": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+- (POST) ['/save-shift']
+
+Parameters
+
+id_pegawai as interger 
+date as date 
+
+
+Headers
+
+Authorization: Bearer <token>
+
+```bash
+{
+    "data": {
+        "status": {
+            "name": "haiya",
+            "shift-date": "2024-01-06"
+        },
+        "message": "Created Shift successfully"
+    }
+}
+```
+
+
+- (POST) ['/delete-shift']
+
+Headers
+
+Authorization: Bearer <token>
+
+```bash
+{
+    "status": "Shift deleted",
+    "message": [
+        true
+    ]
+}
+```
+
+- (POST) ['/cuti']
+to request cuti
+
+id_pegawai as interger
+date as date
+description as string
+
+Headers
+
+Authorization: Bearer <token>
+
+```bash
+{
+    "data": {
+        "status": {
+            "name": "haiya",
+            "shift-date": "2024-01-06",
+            "description": "cuti"
+        },
+        "message": "Created Shift successfully"
+    }
+}
+
+```
+
+
+
+- (POST) ['/absensi']
+
+id_pegawai as interger
+
+Headers
+
+Authorization: Bearer <token>
+
+
+```bash
+{
+    "status": "Successfully",
+    "message": "Successfully save attenden"
+}
+```
