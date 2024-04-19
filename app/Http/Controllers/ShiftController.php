@@ -125,4 +125,9 @@ class ShiftController extends Controller
         }
     }
 
+
+
+    public function cutiFiture(){
+
+    }
 }

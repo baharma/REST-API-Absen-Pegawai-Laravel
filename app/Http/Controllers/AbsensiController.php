@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AbsenCollection;
 use App\Models\Absen;
 use App\Models\Shift;
 use App\Repositories\DataDiri\DataDiriRepository;
+use App\Repositories\Shift\ShiftRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AbsensiController extends Controller
 {
-    protected $absen,$shift,$dataDiriRepository;
+    protected $absen,$shift;
+    public $shiftRepository,$dataDiriRepository;
     public function __construct(
         Absen $absen,
         Shift $shift,
-        DataDiriRepository $dataDiriRepository
+        DataDiriRepository $dataDiriRepository,
+        ShiftRepository $shiftRepository
     )
     {
         $this->dataDiriRepository = $dataDiriRepository;
         $this->absen = $absen;
         $this->shift = $shift;
+        $this->shiftRepository = $shiftRepository;
     }
 
     public function absensi(Request $request)
@@ -30,42 +36,49 @@ class AbsensiController extends Controller
             'time' => now('Asia/Jakarta')->format('H:i:s'),
             'date' => now()->format('Y-m-d'),
         ];
-
-        // Check if attendance data exists for the employee
-        if ($data->Absen->isEmpty()) {
-            // No attendance data exists, create a new record
-            $dataabsen = $this->absen->create([
-                'date' => $timeAndDayNow['date']
-            ]);
-        } else {
-            // Attendance data exists, check if there's a record for the current date
-            $existingRecord = $data->Absen->first(function ($item) use ($timeAndDayNow) {
-                return $item->date == $timeAndDayNow['date'];
-            });
-
-            if ($existingRecord) {
-                // If there's a record for the current date, use it
-                $dataabsen = $existingRecord;
-            } else {
-                // If there's no record for the current date, create a new one
-                $dataabsen = $this->absen->create([
-                    'date' => $timeAndDayNow['date']
+        $dataAbsen = $data->Absen->count();
+        if($dataAbsen){
+            $absen = $this->absen->where('date',$timeAndDayNow['date'])->first();
+            if($absen->clock_in == null){
+                $absen->update([
+                    'clock_in'=>$timeAndDayNow['time']
                 ]);
             }
+        }else{
+            $absen = $this->absen->create([
+                'date' => $timeAndDayNow['date'],
+            ]);
+            $data->Absen()->sync($absen->id,false);
+            $shiftData= [
+                'date'=>$timeAndDayNow['date'],
+                'id_absens'=>$absen->id
+            ];
+            $this->shiftRepository->createShift($shiftData);
+            $absen->update([
+                'clock_in'=>$timeAndDayNow['time']
+            ]);
         }
-        $absen = [
-            'date' => $timeAndDayNow['date'],
-        ];
 
-        if (isset($dataabsen->clock_in)) {
-            $absen['clock_in'] = $timeAndDayNow['time'];
-            $absen['status'] = 'no clock-out';
-        }
-        $dataabsen->update($absen);
-        dd($dataabsen);
-    }
+        $dataSave = [];
+         if($absen->clock_in == $timeAndDayNow['time']){
+            $dataSave['status'] = 'no clock-in';
+            $absen->update($dataSave);
+         }else{
+            $dataSave['clock_out'] = $timeAndDayNow['time'];
+            if ($absen->clock_in > '09:00:00') {
+                $dataSave['status'] = 'late';
+            } elseif ($absen->clock_in == '09:00:00') {
+                $dataSave['status'] = 'valid';
+            }elseif($absen->clock_in < '09:00:00'){
+                $dataSave['status'] = 'early';
+            }
+            $absen->update($dataSave);
+         }
 
-    public function clockOut(Request $request){
+         return response()->json([
+            'status' => 'Successfully',
+            'message' => 'Successfully save attenden',
+        ], 200);
 
     }
 }
