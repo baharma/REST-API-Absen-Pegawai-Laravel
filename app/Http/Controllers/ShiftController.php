@@ -81,20 +81,24 @@ class ShiftController extends Controller
         return $datashift->response()->setStatusCode(Response::HTTP_OK);
     }
 
+    public function updateShift(){
+
+    }
+
 
     public function deleteShift(Request $request)
     {
         $data = $this->dataDiriRepository->whereEmployee($request);
-        $shiftDeleted = false; // Initialize a flag to track if any shifts were deleted
+        $shiftDeleted = false;
 
-        // Loop through each Absen record
+
         $datas = collect($data->Absen)->map(function ($item) use ($request, &$shiftDeleted) {
             if ($item->date == $request->date) {
                 $shift = $this->shift->where('id_absens', $item->id)->first() ?? null;
 
                 if ($shift) {
                     $shift->delete();
-                    $shiftDeleted = true; // Set the flag to true if any shift was deleted
+                    $shiftDeleted = true;
                 }
 
                 DB::table('has_absens')->where('id_absen', $item->id)->delete();
@@ -107,7 +111,7 @@ class ShiftController extends Controller
             return false;
         });
 
-        // Check if any shifts were deleted
+
         if ($shiftDeleted) {
             return response()->json([
                 'status' => 'Shift deleted',

@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->date('birthday');
             $table->string('id_pegawai');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_user')->nullable();
             $table->timestamps();
-            $table->foreign('id_user')->references('id')->on('users');
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('set null');
         });
     }
 
