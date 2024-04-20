@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\DataDiri;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
-class UserSeeder extends Seeder
+class DataDiriSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,12 @@ class UserSeeder extends Seeder
     {
         $data = [
             'name'=>'admingx',
-            'email'=>'admin@gtmail.com',
-            'password'=>'admingx2024'
+            'birthday'=>'1999-09-02',
+            'id_pegawai'=>131212,
+            'id_user'=>1
         ];
 
-        User::create($data);
+
+        DataDiri::create($data);
     }
 }

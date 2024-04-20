@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            HolidayNasionalitySeeder::class
+            HolidayNasionalitySeeder::class,
+            UserSeeder::class,
+            DataDiriSeeder::class
         ]);
     }
 }
