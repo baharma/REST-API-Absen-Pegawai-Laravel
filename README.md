@@ -54,6 +54,12 @@ I have included a helper command to generate a key for you generate key jwt:
   php artisan jwt:secret
 
 ```
+Finally, to run the API, run the command:
+
+```
+    php artisan serve
+
+```
 
 when you need to see database desain https://drawsql.app/teams/team-up-1/diagrams/shift-pegawai-database
 this all end point when use this api:
