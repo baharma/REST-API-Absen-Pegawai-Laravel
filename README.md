@@ -1,6 +1,60 @@
 
 ## About This Api Laravel 
 
+
+## How to install 
+
+First of all, we need to create an .env file based on the env.example file, how to run the command
+
+```
+    cp .env.example .env
+```
+
+Next, we install the packages installed in composer where the packages will be stored in the vendor folder. Run the following command in the command prompt or terminal:
+
+```
+    composer install
+```
+
+After successfully creating the .env file, next run the following command:
+
+```
+    php artisan key:generate
+```
+
+This command will generate a key to be entered into APP_KEY in the .env file
+
+Then, if the Laravel application has a database, create a new database name. Then adjust the database name, username, and database password in the .env file.
+
+Next run the following command:
+
+
+```
+    php artisan migrate
+
+```
+
+This command will generate a table owned by the application database, but first make sure that the application provides migration files in the database/migrations folder.
+
+Usually, ready-made applications not only provide migrations files but also seeder files for table data in the database/seeds folder so we need to insert them into the table with the command:
+
+```
+    php artisan db:seed
+
+```
+Run the following command to publish the package config file jwt
+
+```
+  php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+```
+I have included a helper command to generate a key for you generate key jwt:
+
+```
+  php artisan jwt:secret
+
+```
+
 when you need to see database desain https://drawsql.app/teams/team-up-1/diagrams/shift-pegawai-database
 this all end point when use this api:
 
