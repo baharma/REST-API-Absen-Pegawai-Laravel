@@ -8,8 +8,11 @@ this all end point when use this api:
 - (POST) ['/register']
 
  name as string
+ 
  email as email
+ 
  password as string
+ 
  birthday as date
  
  Example
@@ -105,7 +108,9 @@ Authorization: Bearer <token>
 
 Parameters
 
+
 id_pegawai as interger 
+
 date as date 
 
 
@@ -145,7 +150,9 @@ Authorization: Bearer <token>
 to request cuti
 
 id_pegawai as interger
+
 date as date
+
 description as string
 
 Headers
@@ -171,6 +178,7 @@ Authorization: Bearer <token>
 - (POST) ['/absensi']
 
 id_pegawai as interger
+
 
 Headers
 
