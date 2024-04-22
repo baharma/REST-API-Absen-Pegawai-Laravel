@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LiburNasionalController;
 use App\Http\Controllers\ShiftController;
 use Illuminate\Http\Request;
@@ -38,8 +39,6 @@ Route::controller(ShiftController::class)->middleware('api')->group(function(){
     Route::post('/save-shift','createShift');
     Route::post('/delete-shift','deleteShift');
     Route::post('/cuti','cutiFiture');
-
-
     Route::post('/update-shift','updateShift');
 
 
@@ -51,5 +50,9 @@ Route::controller(AbsensiController::class)->middleware('api')->group(function()
 });
 
 Route::controller(LiburNasionalController::class)->middleware('api')->group(function(){
+
+});
+
+Route::controller(KaryawanController::class)->middleware('api')->group(function(){
 
 });

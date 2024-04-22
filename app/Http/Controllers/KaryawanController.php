@@ -12,7 +12,7 @@ class KaryawanController extends Controller
 
     }
 
-    public function create(Request ){
-
+    public function create(Request $request){
+        
     }
 }
